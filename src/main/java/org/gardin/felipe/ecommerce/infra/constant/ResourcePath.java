@@ -1,0 +1,8 @@
+package org.gardin.felipe.ecommerce.infra.constant;
+
+public final class ResourcePath {
+
+    private static final String API_PATH = "/api";
+
+    public static final String PRODUCT_PATH = API_PATH + "/products";
+}

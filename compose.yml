@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydatabase
+    volumes:
+      - postgres-db-volume:/var/lib/postgresql/MAJOR/docker
+    ports:
+      - "5432:5432"
+    networks:
+      - my-app-network
+
+volumes:
+  postgres-db-volume:
+    driver: local
+
+networks:
+  my-app-network:
+    driver: bridge
