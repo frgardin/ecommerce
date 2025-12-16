@@ -1,17 +1,16 @@
 package org.gardin.felipe.ecommerce.infra.web.controller;
 
-import org.gardin.felipe.ecommerce.application.usecase.ProductCreateUseCase;
+import org.gardin.felipe.ecommerce.infra.service.ProductService;
 import org.gardin.felipe.ecommerce.infra.web.dto.request.ProductRequest;
 import org.gardin.felipe.ecommerce.infra.web.dto.response.ProductResponse;
 import org.gardin.felipe.ecommerce.infra.web.mapper.ProductDTOMapper;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
+
+import static org.gardin.felipe.ecommerce.infra.constant.ResourcePath.ID;
 import static org.gardin.felipe.ecommerce.infra.constant.ResourcePath.PRODUCT_PATH;
 
 @RestController
@@ -19,17 +18,25 @@ import static org.gardin.felipe.ecommerce.infra.constant.ResourcePath.PRODUCT_PA
 public class ProductController {
 
     private final ProductDTOMapper productDTOMapper;
-    private final ProductCreateUseCase productCreateUseCase;
+    private final ProductService productService;
 
-    public ProductController(ProductDTOMapper productDTOMapper, ProductCreateUseCase productCreateUseCase) {
+    public ProductController(ProductDTOMapper productDTOMapper, ProductService productService) {
         this.productDTOMapper = productDTOMapper;
-        this.productCreateUseCase = productCreateUseCase;
+        this.productService = productService;
     }
 
     @PostMapping
-    @Transactional
     public HttpEntity<ProductResponse> create(@RequestBody ProductRequest productRequest) {
-        return ResponseEntity.ok(productDTOMapper.toProductResponse(productCreateUseCase.execute(
-                productDTOMapper.toProductDomain(productRequest))));
+        var response = productDTOMapper.toProductResponse(productService.create(productDTOMapper.toProductDomain(productRequest)));
+        return ResponseEntity.created(URI.create(PRODUCT_PATH+ "/" + response.id())).body(response);
     }
+
+    @PutMapping(ID)
+    public HttpEntity<ProductResponse> update(@PathVariable Long id, @RequestBody ProductRequest productRequest) {
+        var response = productDTOMapper.toProductResponse(productService.create(productDTOMapper.toProductDomain(id, productRequest)));
+        return ResponseEntity.ok(response);
+    }
+
+
+
 }

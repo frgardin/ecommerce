@@ -1,4 +1,4 @@
-package org.gardin.felipe.ecommerce.infra.persistence.jpa.entity;
+package org.gardin.felipe.ecommerce.infra.persistence.entity;
 
 import jakarta.persistence.*;
 
@@ -30,20 +30,6 @@ public class ProductEntity {
 
     public ProductEntity() {
 
-    }
-
-    public ProductEntity(Long id,
-                         String name,
-                         String displayName,
-                         String description,
-                         BigDecimal price,
-                         Integer stock) {
-        this.id = id;
-        this.name = name;
-        this.displayName = displayName;
-        this.description = description;
-        this.price = price;
-        this.stock = stock;
     }
 
     public ProductEntity(String name, String displayName, String description, BigDecimal price, Integer stock) {

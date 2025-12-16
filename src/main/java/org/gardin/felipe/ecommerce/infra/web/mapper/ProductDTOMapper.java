@@ -9,4 +9,6 @@ public interface ProductDTOMapper {
     ProductResponse toProductResponse(Product source);
 
     Product toProductDomain(ProductRequest source);
+
+    Product toProductDomain(Long id, ProductRequest source);
 }

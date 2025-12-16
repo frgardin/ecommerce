@@ -33,4 +33,17 @@ public class ProductDTOMapperImpl implements ProductDTOMapper {
                 source.price(),
                 source.stock());
     }
+
+
+    @Override
+    public Product toProductDomain(Long id, ProductRequest source) {
+        if (source == null) {
+            return null;
+        }
+        return new Product(id, source.name(),
+                source.displayName(),
+                source.description(),
+                source.price(),
+                source.stock());
+    }
 }
