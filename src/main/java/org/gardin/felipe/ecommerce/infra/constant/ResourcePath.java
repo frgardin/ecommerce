@@ -7,4 +7,8 @@ public final class ResourcePath {
     public static final String PRODUCT_PATH = API_PATH + "/products";
 
     public static final String ID = "/{id}";
+
+    private ResourcePath() {
+        throw new IllegalArgumentException();
+    }
 }
