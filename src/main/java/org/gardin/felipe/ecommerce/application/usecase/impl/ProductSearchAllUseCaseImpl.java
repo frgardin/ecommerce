@@ -9,6 +9,6 @@ import java.util.List;
 public record ProductSearchAllUseCaseImpl(ProductGateway productGateway) implements SearchAllUseCase<Product> {
     @Override
     public List<Product> execute() {
-        return List.of();
+        return productGateway.searchAll();
     }
 }
