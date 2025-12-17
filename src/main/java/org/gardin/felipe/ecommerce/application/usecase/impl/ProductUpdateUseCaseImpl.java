@@ -7,6 +7,6 @@ import org.gardin.felipe.ecommerce.domain.Product;
 public record ProductUpdateUseCaseImpl(ProductGateway productGateway) implements UpdateUseCase<Product> {
     @Override
     public Product execute(Product product) {
-        return null;
+        return productGateway.update(product).orElseThrow(() -> new RuntimeException("not found."));
     }
 }
