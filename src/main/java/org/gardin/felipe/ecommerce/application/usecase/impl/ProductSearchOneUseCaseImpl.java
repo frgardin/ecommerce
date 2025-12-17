@@ -8,7 +8,7 @@ public record ProductSearchOneUseCaseImpl(
         ProductGateway productGateway
 ) implements SearchOneUseCase<Product, Long> {
     @Override
-    public Product execute(Long aLong) {
-        return null;
+    public Product execute(Long id) {
+        return productGateway.searchOne(id).orElseThrow(() -> new RuntimeException("not found."));
     }
 }
