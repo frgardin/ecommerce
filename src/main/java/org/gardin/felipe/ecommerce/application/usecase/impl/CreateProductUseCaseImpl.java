@@ -1,11 +1,11 @@
 package org.gardin.felipe.ecommerce.application.usecase.impl;
 
 import org.gardin.felipe.ecommerce.application.gateway.ProductGateway;
-import org.gardin.felipe.ecommerce.application.usecase.CreateUseCase;
+import org.gardin.felipe.ecommerce.application.usecase.CreateProductUseCase;
 import org.gardin.felipe.ecommerce.domain.Product;
 
-public record ProductCreateUseCaseImpl(ProductGateway productGateway)
-        implements CreateUseCase<Product> {
+public record CreateProductUseCaseImpl(ProductGateway productGateway)
+        implements CreateProductUseCase {
 
     @Override
     public Product execute(Product product) {

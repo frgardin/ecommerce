@@ -1,6 +1,6 @@
 package org.gardin.felipe.ecommerce.infra.web.controller;
 
-import org.gardin.felipe.ecommerce.infra.service.ProductService;
+import org.gardin.felipe.ecommerce.infra.adapter.*;
 import org.gardin.felipe.ecommerce.infra.web.dto.request.ProductRequest;
 import org.gardin.felipe.ecommerce.infra.web.dto.response.ProductResponse;
 import org.gardin.felipe.ecommerce.infra.web.mapper.ProductDTOMapper;
@@ -19,40 +19,54 @@ import static org.gardin.felipe.ecommerce.infra.constant.ResourcePath.PRODUCT_PA
 public class ProductController {
 
     private final ProductDTOMapper productDTOMapper;
-    private final ProductService productService;
+    private final CreateProductTxAdapter createProductTxAdapter;
+    private final DeleteProductTxAdapter deleteProductTxAdapter;
+    private final SearchAllProductsTxAdapter searchAllProductsTxAdapter;
+    private final SearchOneProductTxAdapter searchOneProductTxAdapter;
+    private final UpdateProductTxAdapter updateProductTxAdapter;
 
-    public ProductController(ProductDTOMapper productDTOMapper, ProductService productService) {
+    public ProductController(ProductDTOMapper productDTOMapper,
+                             CreateProductTxAdapter createProductTxAdapter,
+                             DeleteProductTxAdapter deleteProductTxAdapter,
+                             SearchAllProductsTxAdapter searchAllProductsTxAdapter,
+                             SearchOneProductTxAdapter searchOneProductTxAdapter,
+                             UpdateProductTxAdapter updateProductTxAdapter) {
         this.productDTOMapper = productDTOMapper;
-        this.productService = productService;
+        this.createProductTxAdapter = createProductTxAdapter;
+        this.deleteProductTxAdapter = deleteProductTxAdapter;
+        this.searchAllProductsTxAdapter = searchAllProductsTxAdapter;
+        this.searchOneProductTxAdapter = searchOneProductTxAdapter;
+        this.updateProductTxAdapter = updateProductTxAdapter;
     }
+
 
     @GetMapping
     public HttpEntity<List<ProductResponse>> getAll() {
-        return ResponseEntity.ok(productService.searchAll().stream()
+        return ResponseEntity.ok(searchAllProductsTxAdapter.retrieve().stream()
                 .map(productDTOMapper::toProductResponse)
                 .toList());
     }
 
     @GetMapping(ID)
     public HttpEntity<ProductResponse> getOne(@PathVariable Long id) {
-        return ResponseEntity.ok(productDTOMapper.toProductResponse(productService.searchOne(id)));
+        return ResponseEntity.ok(productDTOMapper.toProductResponse(searchOneProductTxAdapter.retrieve(id)));
     }
 
     @PostMapping
     public HttpEntity<ProductResponse> create(@RequestBody ProductRequest productRequest) {
-        var response = productDTOMapper.toProductResponse(productService.create(productDTOMapper.toProductDomain(productRequest)));
+        var response = productDTOMapper.toProductResponse(createProductTxAdapter.execute(productDTOMapper.toProductDomain(productRequest)));
         return ResponseEntity.created(URI.create(PRODUCT_PATH + "/" + response.id())).body(response);
     }
 
     @PutMapping(ID)
     public HttpEntity<ProductResponse> update(@PathVariable Long id, @RequestBody ProductRequest productRequest) {
-        var response = productDTOMapper.toProductResponse(productService.update(productDTOMapper.toProductDomain(id, productRequest)));
+        var response = productDTOMapper.toProductResponse(updateProductTxAdapter.execute(productDTOMapper.toProductDomain(id, productRequest)));
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping(ID)
     public HttpEntity<?> delete(@PathVariable Long id) {
-        productService.delete(id);
+        deleteProductTxAdapter.execute(id);
         return ResponseEntity.noContent().build();
     }
 }

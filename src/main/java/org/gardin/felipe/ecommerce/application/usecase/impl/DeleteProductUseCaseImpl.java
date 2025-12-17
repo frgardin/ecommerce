@@ -1,9 +1,10 @@
 package org.gardin.felipe.ecommerce.application.usecase.impl;
 
 import org.gardin.felipe.ecommerce.application.gateway.ProductGateway;
-import org.gardin.felipe.ecommerce.application.usecase.DeleteUseCase;
+import org.gardin.felipe.ecommerce.application.usecase.DeleteProductUseCase;
 
-public record ProductDeleteUseCaseImpl(ProductGateway productGateway) implements DeleteUseCase<Long> {
+public record DeleteProductUseCaseImpl(ProductGateway productGateway)
+        implements DeleteProductUseCase {
     @Override
     public void execute(Long id) {
         productGateway.delete(id);
