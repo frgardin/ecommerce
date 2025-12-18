@@ -21,6 +21,8 @@ spring:
       "[hibernate.generate_statistics]": false
       "[hibernate.connection.provider_disables_autocommit]": true
   liquibase:
+    default-schema: myschema
+    liquibase-schema: myschema
     enabled: true
     change-log: classpath:db/changelog/db.changelog-master.yml
     drop-first: false
