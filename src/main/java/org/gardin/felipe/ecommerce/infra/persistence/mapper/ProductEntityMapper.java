@@ -1,6 +1,6 @@
 package org.gardin.felipe.ecommerce.infra.persistence.mapper;
 
-import org.gardin.felipe.ecommerce.domain.Product;
+import org.gardin.felipe.ecommerce.domain.product.Product;
 import org.gardin.felipe.ecommerce.infra.persistence.entity.ProductEntity;
 
 public interface ProductEntityMapper {

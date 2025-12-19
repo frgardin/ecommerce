@@ -1,6 +1,7 @@
 package org.gardin.felipe.ecommerce.infra.persistence.mapper.impl;
 
-import org.gardin.felipe.ecommerce.domain.Product;
+import org.gardin.felipe.ecommerce.domain.product.Product;
+import org.gardin.felipe.ecommerce.domain.product.ProductId;
 import org.gardin.felipe.ecommerce.infra.persistence.entity.ProductEntity;
 import org.gardin.felipe.ecommerce.infra.persistence.mapper.ProductEntityMapper;
 import org.springframework.stereotype.Component;
@@ -14,7 +15,7 @@ public class ProductEntityMapperImpl implements ProductEntityMapper {
             return null;
         }
         return new Product(
-                source.getId(),
+                new ProductId(source.getId()),
                 source.getName(),
                 source.getDisplayName(),
                 source.getDescription(),

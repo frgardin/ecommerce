@@ -1,7 +1,7 @@
 package org.gardin.felipe.ecommerce.infra.adapter;
 
 import org.gardin.felipe.ecommerce.application.usecase.SearchOneProductUseCase;
-import org.gardin.felipe.ecommerce.domain.Product;
+import org.gardin.felipe.ecommerce.domain.product.Product;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

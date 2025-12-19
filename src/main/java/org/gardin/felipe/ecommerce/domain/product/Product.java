@@ -1,11 +1,11 @@
-package org.gardin.felipe.ecommerce.domain;
+package org.gardin.felipe.ecommerce.domain.product;
 
 import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Product {
 
-    private Long id;
+    private ProductId id;
     private String name;
     private String displayName;
     private String description;
@@ -24,7 +24,7 @@ public class Product {
         this.price = price;
     }
 
-    public Product(Long id,
+    public Product(ProductId id,
                    String name,
                    String displayName,
                    String description,
@@ -55,11 +55,11 @@ public class Product {
         return Objects.hash(id, name, displayName, description, stock, price);
     }
 
-    public Long getId() {
+    public ProductId getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(ProductId id) {
         this.id = id;
     }
 

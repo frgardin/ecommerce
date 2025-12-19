@@ -1,6 +1,7 @@
 package org.gardin.felipe.ecommerce.infra.web.mapper.impl;
 
-import org.gardin.felipe.ecommerce.domain.Product;
+import org.gardin.felipe.ecommerce.domain.product.Product;
+import org.gardin.felipe.ecommerce.domain.product.ProductId;
 import org.gardin.felipe.ecommerce.infra.web.dto.request.ProductRequest;
 import org.gardin.felipe.ecommerce.infra.web.dto.response.ProductResponse;
 import org.gardin.felipe.ecommerce.infra.web.mapper.ProductDTOMapper;
@@ -14,7 +15,7 @@ public class ProductDTOMapperImpl implements ProductDTOMapper {
         if (source == null) {
             return null;
         }
-        return new ProductResponse(source.getId(),
+        return new ProductResponse(source.getId().id(),
                 source.getName(),
                 source.getDisplayName(),
                 source.getDescription(),
@@ -40,7 +41,7 @@ public class ProductDTOMapperImpl implements ProductDTOMapper {
         if (source == null) {
             return null;
         }
-        return new Product(id, source.name(),
+        return new Product(new ProductId(id), source.name(),
                 source.displayName(),
                 source.description(),
                 source.price(),

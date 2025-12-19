@@ -1,7 +1,7 @@
 package org.gardin.felipe.ecommerce.infra.persistence.gateway;
 
 import org.gardin.felipe.ecommerce.application.gateway.ProductGateway;
-import org.gardin.felipe.ecommerce.domain.Product;
+import org.gardin.felipe.ecommerce.domain.product.Product;
 import org.gardin.felipe.ecommerce.infra.persistence.mapper.ProductEntityMapper;
 import org.gardin.felipe.ecommerce.infra.persistence.repository.ProductRepository;
 import org.springframework.stereotype.Repository;
@@ -29,7 +29,7 @@ public class ProductGatewayImpl implements ProductGateway {
 
     @Override
     public Optional<Product> update(Product product) {
-        return productRepository.findById(product.getId())
+        return productRepository.findById(product.getId().id())
                 .map(productEntity -> productEntityMapper.update(product, productEntity))
                 .map(productEntityMapper::toProductDomain);
     }

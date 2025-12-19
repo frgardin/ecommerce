@@ -1,6 +1,6 @@
 package org.gardin.felipe.ecommerce.infra.web.mapper;
 
-import org.gardin.felipe.ecommerce.domain.Product;
+import org.gardin.felipe.ecommerce.domain.product.Product;
 import org.gardin.felipe.ecommerce.infra.web.dto.request.ProductRequest;
 import org.gardin.felipe.ecommerce.infra.web.dto.response.ProductResponse;
 
